@@ -16,44 +16,44 @@ class ContactData extends Component {
                 },
                 value: ''
             },
-            street:  {
+            street: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Your name'
+                    placeholder: 'Your address'
                 },
                 value: ''
             },
-            zipCode:  {
+            zipCode: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Your name'
+                    placeholder: 'Your Zip'
                 },
                 value: ''
             },
-            email:  {
+            email: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Your name'
+                    placeholder: 'Your E-mail'
                 },
                 value: ''
             },
-            country:  {
+            country: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Your name'
+                    placeholder: 'Your Country'
                 },
                 value: ''
             },
-            deliveryMethod:  {
+            deliveryMethod: {
                 elementType: 'select',
                 elementConfig: {
-                   options: [
-                       {value: 'fastest', displayValue: 'Fastest'},
-                       {value: 'cheapest', displayValue: 'Cheapest'}
+                    options: [
+                        { value: 'fastest', displayValue: 'Fastest' },
+                        { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
                 },
                 value: ''
@@ -82,12 +82,26 @@ class ContactData extends Component {
     };
 
     render() {
-        let form = (<form>
+        const formElementsArray = [];
+        for (const key in this.state.orderForm) {
+            formElementsArray.push({
+                id: key,
+                config: this.state.orderForm[key]
+            });
+        }
 
-            <Input elementType="..." elementConfig="..." value="..." />
-            <Input inputtype="input" type="text" name="email" placeholder="Your Mail" />
-            <Input inputtype="input" type="text" name="street" placeholder="Your Street" />
-            <Input inputtype="input" type="text" name="postal" placeholder="Your Postal Code" />
+
+        let form = (<form>
+            {formElementsArray.map(
+                formEl =>
+                    (<Input
+                        key={formEl.id}
+                        elementType={formEl.config.elementType}
+                        elementConfig={formEl.config.elementConfig}
+                        value={formEl.config.value}
+                    />)
+            )}
+
             <Button btnType="Success" clicked={this.orderHandler}>order</Button>
         </form>);
 
